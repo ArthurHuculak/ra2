@@ -1,0 +1,374 @@
+###questao 1.a
+
+def S(n):
+    # Caso base
+    if n == 1:
+        return 10
+    # Passo recursivo
+    else:
+        return S(n - 1) + 10
+
+# Teste
+for i in range(1, 6):
+    print(f"S({i}) = {S(i)}")
+
+#comentario :
+#Para n = 1, ele retorna 10 diretamente. Para qualquer outro n, ele chama a função Srecursivamente com n - 1e depois adiciona 10 ao resultado.
+
+###questao 1.b
+
+def A(n):
+    # Caso base
+    if n == 1:
+        return 2
+    # Passo recursivo
+    else:
+        return A(n - 1) - 1
+
+# Teste
+for i in range(1, 6):
+    print(f"A({i}) = {A(i)}")
+
+#comentario :
+#Para n = 1, ele retorna 2 diretamente. Para qualquer outro n, ele chama a função Arecursivamente com n - 1e subtrai 1 do resultado
+
+###questao 1.c
+
+def B(n):
+    # Caso base
+    if n == 1:
+        return 1
+    # Passo recursivo
+    else:
+        return B(n - 1) + n**2
+
+# Teste
+for i in range(1, 6):
+    print(f"B({i}) = {B(i)}")
+
+#comentario : 
+#Para n = 1, retorna 1. Para qualquer outro n, ele chama a função recursivamente com n - 1e adiciona n ao quadrado ao resultado.
+
+
+###questao 1.d
+
+def P(n):
+    # Caso base
+    if n == 1:
+        return 1
+    # Passo recursivo
+    else:
+        return n**2 * P(n - 1) + n - 1
+
+# Testando o algoritmo
+for i in range(1, 6):
+    print(f"P({i}) = {P(i)}")
+
+
+#comentario :
+#A função P primeiro verifica se né 1. Se for, ela retorna 1. Se não for, ela chama a função recursivamente com n-1, multiplica o resultado por n ao quadrado e entao adiciona n - 1.
+
+
+###questao 1.e
+
+def D(n):
+    # Casos base
+    if n == 1:
+        return 3
+    elif n == 2:
+        return 5
+    # Passo recursivo
+    else:
+        return (n - 1) * D(n - 1) + (n - 2) * D(n - 2)
+
+# Testando o algoritmo
+for i in range(1, 6):
+    print(f"D({i}) = {D(i)}")
+
+#comentario : 
+#A função Dprimeiramente verifica os casos base: se né 1, ela retorna 3, e se né 2, ela retorna 5. Para qualquer outro valor de n, ela chama a função recursivamente com n-1e n-2, multiplicando os resultados conforme a fórmula fornecida e depois somando- os.
+
+###questao 1.f
+
+def W(n):
+    # Casos base
+    if n == 1:
+        return 2
+    elif n == 2:
+        return 5
+    # Passo recursivo
+    else:
+        return W(n - 1) * W(n - 2)
+
+# Testando o algoritmo
+for i in range(1, 6):
+    print(f"W({i}) = {W(i)}")
+
+#comentario :
+# A função Wcomeça verificando os casos base: se né 1, retorna 2; se né 2, retorna 5. Para outros valores de n, ela chama a função recursivamente para n-1e n-2, multiplicando os resultados obtidos, conforme a fórmula dada.
+
+###questao 1.g
+
+def T(n):
+    # Casos base
+    if n == 1:
+        return 1
+    elif n == 2:
+        return 2
+    elif n == 3:
+        return 3
+    # Passo recursivo
+    else:
+        return T(n - 1) + 2*T(n - 2) + 3*T(n - 3)
+
+# Testando o algoritmo
+for i in range(1, 7):  # Testando de T(1) a T(6) como exemplo
+    print(f"T({i}) = {T(i)}")
+
+#comentario :
+# A função Tcomeça verificando os casos base: se né 1, retorna 1; se né 2, retorna 2; e se né 3, retorna 3. Para valores nmaiores que 3
+
+
+#questao 2
+
+def PG(a, r, n):
+    # Caso base
+    if n == 1:
+        return a
+    # Passo recursivo
+    else:
+        return r * PG(a, r, n-1)
+
+# Exemplo de uso:
+# Termo inicial: 2
+# Razão: 3
+# Queremos encontrar o 5º termo
+print(PG(2, 3, 5))
+
+
+###questao 3 
+
+#O número 2 pertence a T.
+# se X pertence a T logo X + 3e2X  tambem pertece a T.
+
+
+def in_T(x, limit):
+    if x > limit:
+        return False
+    if x == 2:
+        return True
+    # Verificar se pode ter vindo por uma das operações
+    return (x % 2 == 0 and in_T(x // 2, limit)) or in_T(x - 3, limit)
+
+numbers_to_check = [6, 7, 19, 12]
+for num in numbers_to_check:
+    if in_T(num, 19):  # Usamos 19 como limite
+        print(f"{num} pertence a T.")
+    else:
+        print(f"{num} não pertence a T.")
+
+###questao 4 
+
+def pertence_a_M(n):
+    if n == 2 or n == 3:
+        return True
+    if n < 2:
+        return False
+
+    # Verifique se n pode ser expresso como o produto de dois números em M.
+    for x in range(2, n):
+        if pertence_a_M(x) and pertence_a_M(n // x):
+            return True
+
+    return False
+
+# Lista de números para verificar
+numeros = [6, 9, 16, 21, 26, 54, 72, 218]
+
+for numero in numeros:
+    if pertence_a_M(numero):
+        print(f'{numero} pertence a M.')
+    else:
+        print(f'{numero} não pertence a M.')
+
+###questao 5
+
+def pertence_a_S(cadeia):
+    # Casos base
+    if cadeia == 'a' or cadeia == 'b':
+        return True
+    
+    # Se a cadeia termina com 'b', remova o 'b' e verifique a cadeia restante
+    if cadeia.endswith('b'):
+        return pertence_a_S(cadeia[:-1])
+    
+    return False
+
+cadeias_para_verificar = ['a', 'ab', 'aba', 'aaab', 'bbbbb']
+for str_ in cadeias_para_verificar:
+    if pertence_a_S(str_):
+        print(f"'{str_}' pertence a S.")
+    else:
+        print(f"'{str_}' não pertence a S.")
+
+
+###questao 6
+
+def pertence_a_S(cadeia):
+    # Casos base
+    if cadeia == 'a' or cadeia == 'b':
+        return True
+    
+    # Se a cadeia começa com 'a' e termina com 'b'
+    if cadeia.startswith('a') and cadeia.endswith('b'):
+        subcadeia = cadeia[1:-1]  # Pega a subcadeia entre 'a' e 'b'
+        return pertence_a_S(subcadeia)
+    
+    return False
+
+cadeias_para_verificar = ['a(b)', 'a(a(b)b)', 'a(ab)b', 'a(a(a(a)b)b)b', 'a(aabb)b']
+
+for str_ in cadeias_para_verificar:
+    if pertence_a_S(str_):
+        print(f"'{str_}' pertence a S.")
+    else:
+        print(f"'{str_}' não pertence a S.")
+
+
+###questao 7
+
+def gerar_cadeias_binarias_impares_zeros(n, atual=""):
+    if n == 0:
+        # Verifique se a cadeia atual tem um número ímpar de zeros.
+        if atual.count("0") % 2 == 1:
+            print(atual)
+        return
+    else:
+        gerar_cadeias_binarias_impares_zeros(n - 1, atual + "0")
+        gerar_cadeias_binarias_impares_zeros(n - 1, atual + "1")
+
+# Exemplo de uso:
+n = 3  # Número de dígitos na cadeia binária
+gerar_cadeias_binarias_impares_zeros(n)
+
+
+
+###questao 8 
+
+#a
+
+def calcular_S(n):
+    if n == 1:
+        return 1
+    else:
+        return 3 * calcular_S(n - 1)
+
+# Exemplo de uso:
+n = 5  # Por exemplo, para calcular S(5)
+resultado = calcular_S(n)
+print(f'S({n}) = {resultado}')
+
+#b
+
+def calcular_S(n):
+    if n == 1:
+        return 2
+    elif n == 2:
+        return 1
+    else:
+        return 2 * calcular_S(n - 2)
+
+# Exemplo de uso:
+n = 5  # Por exemplo, para calcular S(5)
+resultado = calcular_S(n)
+print(f'S({n}) = {resultado}')
+
+#c
+
+def calcular_S(n, a, b):
+    if n == 1:
+        return a
+    elif n == 2:
+        return b
+    else:
+        return calcular_S(n - 2, a, b) + calcular_S(n - 1, a, b)
+
+# Exemplo de uso:
+n = 5  # Por exemplo, para calcular S(5) com a = 1 e b = 2
+a = 1
+b = 2
+resultado = calcular_S(n, a, b)
+print(f'S({n}) = {resultado}')
+
+#D
+
+def calcular_S(n, p, q):
+    if n == 1:
+        return p
+    elif n == 2:
+        return p - q
+    elif n % 2 == 1:
+        return calcular_S(n - 2, p, q) + ((n - 1) * q)
+    else:
+        return calcular_S(n - 2, p, q) - ((n - 1) * q)
+
+# Exemplo de uso:
+n = 5  # Por exemplo, para calcular S(5) com p = 10 e q = 2
+p = 10
+q = 2
+resultado = calcular_S(n, p, q)
+print(f'S({n}) = {resultado}')
+
+
+###questão 9
+
+#Entrada do valor n
+n = int(input("Digite o valor de n: "))
+
+#Aplicação da formula na variavel a 
+a = (n * (n + 1)) / 2 
+
+#Resultado
+print(a)
+
+###questao 10 
+
+## A)
+n = 50.000
+
+l = n * 3
+
+x = int(input("Digite quantas horas se passaram: "))
+
+valbac = (x * l)
+
+print(valbac)
+
+
+## B) 
+
+pop = 50000
+l = 0
+
+while pop <= 200000:
+    pop *= 3  
+    l += 1    
+
+print("Número de leituras necessárias para a bacterias excederem 200.000:", l)
+
+###questao 11
+
+def ordenacao_selecao(L, j):
+    if j <= 0:
+        return L
+
+    max_index = max(range(j), key=lambda i: L[i])
+    L[max_index], L[j - 1] = L[j - 1], L[max_index]
+    
+    return ordenacao_selecao(L, j - 1)
+
+
+L = [3, 7, 4, 2, 6]
+print("Lista resultante:", ordenacao_selecao(L, len(L)))
+
+###O código implementa o algoritmo de ordenação por seleção (Selection Sort) de forma recursiva. Ele localiza o maior valor nos segmentos não ordenados da lista, coloca-o na posição correta e repete o processo para o segmento limitado.
